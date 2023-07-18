@@ -1,0 +1,24 @@
+{
+  "name": "kronos-js",
+  "version": "1.0.2",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/Alex-Werner/kronos-js.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/Alex-Werner/kronos-js/issues"
+  },
+  "homepage": "https://gitlab.com/Alex-Werner/kronos-js#readme",
+  "dependencies": {
+    "cron": "^1.7.0",
+    "eventemitter2": "^5.0.1",
+    "moment": "^2.24.0"
+  }
+}
