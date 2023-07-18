@@ -8,6 +8,8 @@ class Kronos extends EventEmitter {
       wildcard: true,
       delimiter:'/',
     });
+
+    this.jobList = [];
   }
   subscribe(timeframe){
     let cronRule;
@@ -45,8 +47,15 @@ class Kronos extends EventEmitter {
     const start = false;
     const utcOffset = moment().utcOffset();
     const job = new CronJob(cronRule, onTick, onComplete, start, null, null, null, utcOffset);
+    this.jobList.push(job);
     job.start();
     console.log('Subscribed ', timeframe);
+  }
+  unsubscribeAll(){
+    this.jobList.forEach((job)=>{
+      job.stop();
+    });
+    this.jobList = [];
   }
 };
 module.exports = Kronos;
