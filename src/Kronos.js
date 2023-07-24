@@ -1,13 +1,11 @@
-const EventEmitter = require('eventemitter2').EventEmitter2;
+// const EventEmitter = require('eventemitter2').EventEmitter2;
+const EventEmitter = require('events');
 const {CronJob} = require('cron');
 const moment = require('moment');
 
 class Kronos extends EventEmitter {
   constructor(){
-    super({
-      wildcard: true,
-      delimiter:'/',
-    });
+    super();
 
     this.jobList = [];
   }
@@ -37,11 +35,13 @@ class Kronos extends EventEmitter {
         throw new Error('Unhandled timeframe');
     }
     const onTick =()=>{
+      const eventName = 'TIME/'+timeframe;
       const payload = {
         timestamp: moment.utc().startOf('second').toISOString(),
         timeframe
       }
-      this.emit('TIME/'+timeframe, {type:'TIME/'+timeframe, payload})
+      this.emit(eventName, {type:eventName, payload})
+      this.emit('TIME/*', {type:eventName, payload})
     };
     const onComplete = null;
     const start = false;
@@ -49,7 +49,7 @@ class Kronos extends EventEmitter {
     const job = new CronJob(cronRule, onTick, onComplete, start, null, null, null, utcOffset);
     this.jobList.push(job);
     job.start();
-    console.log('Subscribed ', timeframe);
+    this.emit('SUBSCRIPTIONS', {type:'SUBSCRIBED', payload:{timeframe}});
   }
   unsubscribeAll(){
     this.jobList.forEach((job)=>{
