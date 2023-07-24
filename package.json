@@ -1,6 +1,6 @@
 {
   "name": "kronos-js",
-  "version": "1.1.0-alpha",
+  "version": "2.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -10,15 +10,15 @@
     "type": "git",
     "url": "git+ssh://git@github.com/Alex-Werner/kronos-js.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Alex Werner",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Alex-Werner/kronos-js/issues"
   },
   "homepage": "https://github.com/Alex-Werner/kronos-js#readme",
   "dependencies": {
-    "cron": "^1.8.3",
-    "eventemitter2": "^5.0.1",
+    "cron": "^2.3.1",
+    "eventemitter2": "^6.4.9",
     "moment": "^2.29.4"
   }
 }
