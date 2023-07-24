@@ -7,7 +7,7 @@ class Kronos extends EventEmitter {
   constructor(){
     super();
 
-    this.jobList = [];
+    this.jobList = {};
   }
   subscribe(timeframe){
     let cronRule;
@@ -47,15 +47,17 @@ class Kronos extends EventEmitter {
     const start = false;
     const utcOffset = moment().utcOffset();
     const job = new CronJob(cronRule, onTick, onComplete, start, null, null, null, utcOffset);
-    this.jobList.push(job);
-    job.start();
+    if(!this.jobList[timeframe]){
+      this.jobList[timeframe] = job;
+    }
+    this.jobList[timeframe].start();
     this.emit('SUBSCRIPTIONS', {type:'SUBSCRIBED', payload:{timeframe}});
   }
   unsubscribeAll(){
-    this.jobList.forEach((job)=>{
+    Object.entries(this.jobList).forEach(([,job])=>{
       job.stop();
     });
-    this.jobList = [];
+    this.jobList = {};
   }
 };
 module.exports = Kronos;
