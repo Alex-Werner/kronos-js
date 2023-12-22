@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import Kronos from './Kronos'; // Adjust the import path according to your project structure
+import Kronos from './Kronos';
 
 describe('Kronos', () => {
     let kronos;
