@@ -1,3 +1,3 @@
-const Kronos = require('./src/Kronos');
+import Kronos from "./src/Kronos.js";
 
-module.exports = Kronos;
+export default Kronos;
