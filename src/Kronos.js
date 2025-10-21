@@ -1,6 +1,5 @@
 import { EventEmitter } from 'events';
-import { CronJob } from 'cron';
-import moment from 'moment';
+import { CronJob } from './CronJob.js';
 
 class Kronos extends EventEmitter {
   constructor() {
@@ -38,8 +37,10 @@ class Kronos extends EventEmitter {
 
     const onTick = () => {
       const eventName = 'TIME/' + timeframeOrCronString;
+      const now = new Date();
+      now.setMilliseconds(0);
       const payload = {
-        timestamp: moment.utc().startOf('second').toISOString(),
+        timestamp: now.toISOString(),
         timeframe: timeframeOrCronString
       };
       this.emit(eventName, { type: eventName, payload });
@@ -48,7 +49,7 @@ class Kronos extends EventEmitter {
 
     const onComplete = null;
     const start = false;
-    const utcOffset = moment().utcOffset();
+    const utcOffset = -new Date().getTimezoneOffset();
     const job = new CronJob(cronRule, onTick, onComplete, start, null, null, null, utcOffset);
 
     if (!this.jobList[timeframeOrCronString]) {
